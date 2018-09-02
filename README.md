@@ -1,1 +1,0 @@
-# rahasak-quiz
