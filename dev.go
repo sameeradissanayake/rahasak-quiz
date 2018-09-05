@@ -7,21 +7,19 @@ import(
 )
 
 func main() {
-
 	producer, consumer := conf()
-    
-    publish(producer)
-
-    partitions, _ := consumer.Partitions("verifiedData")
-    consume, err := consumer.ConsumePartition("verifiedData", partitions[0], sarama.OffsetNewest)
+	publish(producer)
+	
+	partitions, _ := consumer.Partitions("verifiedData")
+	consume, err := consumer.ConsumePartition("verifiedData", partitions[0], sarama.OffsetNewest)
 	
 	if nil != err {
 		fmt.Printf("Topic %v Partitions: %v", "verifiedData", partitions)
 		panic(err)
 	}
-
-    msg := <-consume.Messages()
-    fmt.Println("Value: ", string(msg.Key), string(msg.Value))
+	
+	msg := <-consume.Messages()
+	fmt.Println("Value: ", string(msg.Key), string(msg.Value))
 }
 
 
