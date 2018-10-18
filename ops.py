@@ -2,8 +2,8 @@ import re
 from kafka import KafkaConsumer
 from kafka import KafkaProducer
 
-consumer = KafkaConsumer('userData', bootstrap_servers='localhost:9092')
-producer = KafkaProducer(bootstrap_servers='localhost:9092')
+consumer = KafkaConsumer('userData', bootstrap_servers='10.22.41.26:9092')
+producer = KafkaProducer(bootstrap_servers='10.22.41.26:9092')
 
 # receive user input
 for message in consumer:
@@ -11,5 +11,7 @@ for message in consumer:
 	#phone number verification & sending result
 	if rule.search(message.value):
 		producer.send('verifiedData', value = b'yes')
+		print "yes" + message.value
 	else:
 		producer.send('verifiedData', value = b'no')
+		print "no" + message.value
